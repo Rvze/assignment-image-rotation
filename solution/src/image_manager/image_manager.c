@@ -19,7 +19,6 @@ void delete_image(struct image *image) {
     if (image) {
         if (image->data)
             free(image->data);
-        free(image);
     }
 }
 

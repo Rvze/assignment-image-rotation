@@ -3,20 +3,19 @@
 //
 
 #include "../../include/image_rotation/image_rotation.h"
-#include <stdbool.h>
+#include "../../include/image_manager/image_manager.h"
 #include <mm_malloc.h>
 
-struct image rotate_image(struct image const src) {
-    struct image rotated_img;
-    rotated_img.data = malloc(sizeof(struct pixel) * src.height * src.width);
+struct image rotate_image(const struct image source) {
+    if (source.data == NULL)
+        return *create_image(source.width, source.height);
 
-    for (size_t i = 0; i < src.height; i++) {
-        for (size_t j = 0; j < src.width; j++) {
-            rotated_img.data[j * src.height + (src.height - 1 - i)] = src.data[i * src.width + j];
+    struct pixel *pixels = malloc(sizeof(struct pixel) * source.width * source.height);
+
+    for (size_t i = 0; i < source.height; ++i) {
+        for (size_t j = 0; j < source.width; ++j) {
+            pixels[source.height * j + (source.height - 1 - i)] = source.data[i * source.width + j];
         }
     }
-    rotated_img.width = src.height;
-    rotated_img.height = src.width;
-    return rotated_img;
-
+    return *create_image(source.width, source.height);
 }

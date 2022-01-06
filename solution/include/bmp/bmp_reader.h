@@ -12,6 +12,6 @@ enum read_status read_header(FILE *file, struct bmp_header *header);
 
 enum read_status read_pixels(FILE *file, struct image *image);
 
-size_t get_padding(struct image image);
+size_t get_padding(size_t width);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_BMP_READER_H

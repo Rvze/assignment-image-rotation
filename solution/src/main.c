@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
         return ERROR;
     }
     printf("%s", "program started\n");
-    struct image image;
+    struct image image = {0};
     FILE *maybe_input_file = NULL;
     FILE *maybe_output_file = NULL;
     const char *input_file = argv[1];
@@ -23,19 +23,30 @@ int main(int argc, char **argv) {
     fprintf(stderr, "%s\n", io_return_code_string[code]);
     if (code != OPEN_OK)
         return fprintf(stderr, "%s", io_return_code_string[code]);
+
     enum read_status read_status = from_bmp(maybe_input_file, &image);
-    fprintf(stderr, "%s", read_status_string[read_status]);
+    fprintf(stderr, "%s\n", read_status_string[read_status]);
     if (read_status != READ_OK) {
         fprintf(stderr, "%s", "Ошибка при конвертации в image");
         return ERROR;
     }
+
     struct image rotated = rotate_image(image);
+
     code = open_file(&maybe_output_file, output_file, "w");
+
+    printf("%s\n", io_return_code_string[code]);
     if (code != OPEN_OK)
         return OPEN_ERROR;
+
     enum write_status write_status = to_bmp(maybe_output_file, &rotated);
+
+    printf("%s", write_status_string[write_status]);
     if (write_status != WRITE_OK)
         return WRITE_ERROR;
+
+    delete_image(&rotated);
+    close_file(&maybe_output_file);
     return 0;
 
 }

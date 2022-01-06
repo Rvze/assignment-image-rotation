@@ -23,6 +23,10 @@ const char *read_status_string[] = {
         [READ_NULL] = "Read null"
 };
 
+const char *write_status_string[] = {
+        [WRITE_OK] = "Write ok\n",
+        [WRITE_ERROR] = "Write error\n"
+};
 
 static struct bmp_header make_header(const struct image *image) {
     struct bmp_header new_header = {
@@ -67,17 +71,17 @@ enum write_status to_bmp(FILE *file, struct image const *image) {
     if (!fwrite(&header, sizeof(struct bmp_header), 1, file))
         return WRITE_ERROR;
     fseek(file, header.bOffBits, SEEK_SET);
-    const uint8_t zero_line = 0;
-    if (image->data == NULL)
-        return WRITE_ERROR;
-    for (size_t i = 0; i < image->height; i++) {
-        void *const start = image->data + i * image->width;
-        size_t const size = image->width * sizeof(struct pixel);
-        fwrite(start, size, 1, file);
-        for (size_t j = 0; j < get_padding(*image); j++) {
-            fwrite(&zero_line, 1, 1, file);
+    const int8_t zero = 0;
+    const size_t padding = get_padding(image->width);
+    if (image->data != NULL) {
+        for (size_t i = 0; i < image->height; ++i) {
+            fwrite(image->data + i * image->width, image->width * sizeof(struct pixel), 1, file);
+            for (size_t j = 0; j < padding; ++j) {
+                fwrite(&zero, 1, 1, file);
+            }
         }
+    } else {
+        return WRITE_ERROR;
     }
     return WRITE_OK;
-
 }

@@ -19,7 +19,7 @@ enum read_status read_header(FILE *file, struct bmp_header *header) {
 }
 
 enum read_status read_pixels(FILE *file, struct image *image) {
-    size_t padding = get_padding(*image);
+    size_t padding = get_padding(image->width);
     for (size_t i = 0; i < image->height; i++) {
         size_t file_read = fread(image->data + i * image->width, image->width * sizeof(struct pixel), 1, file);
         if (file_read != 1)
@@ -30,8 +30,6 @@ enum read_status read_pixels(FILE *file, struct image *image) {
     return READ_OK;
 }
 
-size_t get_padding(struct image image) {
-    if ((4 - image.width * 3 % 4) == 0)
-        return 0;
-    return 4 - image.width * 3 % 4;
+size_t get_padding(const size_t width) {
+    return width % 4 == 0 ? 0 : 4 - ((width * sizeof(struct pixel)) % 4);
 }
