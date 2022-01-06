@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stddef.h>
-#include <malloc.h>
+#include <mm_malloc.h>
 #include <inttypes.h>
 
 #include "dimensions.h"

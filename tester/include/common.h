@@ -1,4 +1,4 @@
 #pragma once
 
-#define EXECUTABLE_NAME "image-transformer"
+#define EXECUTABLE_NAME "image_manager-transformer"
 
