@@ -44,8 +44,6 @@ int main(int argc, char **argv) {
     enum write_status write_status = to_bmp(maybe_output_file, &rotated);
 
     log(write_status_string[write_status]);
-    close_file(maybe_output_file);
-    log(io_return_code_string[closed]);
     if (write_status != WRITE_OK)
         return WRITE_ERROR;
 
@@ -54,8 +52,6 @@ int main(int argc, char **argv) {
     closed = close_file(maybe_output_file);
     log(io_return_code_string[closed]);
     return 0;
-
-
 }
 
 static void log(const char *message) {

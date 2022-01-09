@@ -15,10 +15,7 @@ struct image create_image(size_t width, size_t height) {
 }
 
 void delete_image(struct image *image) {
-    if (image) {
-        if (image->data)
-            free(image->data);
-    }
+    free(image->data);
 }
 
 struct pixel get_pixel(const struct image *image, const size_t row, const size_t column) {
