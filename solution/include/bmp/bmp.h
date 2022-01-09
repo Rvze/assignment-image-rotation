@@ -44,4 +44,7 @@ enum write_status to_bmp(FILE *out, const struct image *image);
 
 enum read_status from_bmp(FILE *in, struct image *img);
 
-#endif
+enum read_status read_header(FILE *file, struct bmp_header *header);
+
+
+#endif //BMP_H

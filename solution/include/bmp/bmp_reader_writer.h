@@ -5,10 +5,9 @@
 #ifndef ASSIGNMENT_IMAGE_ROTATION_BMP_READER_WRITER_H
 #define ASSIGNMENT_IMAGE_ROTATION_BMP_READER_WRITER_H
 
-#include "bmp.h"
 #include "../image_manager/image_manager.h"
+#include "bmp.h"
 
-static inline enum read_status read_header(FILE *file, struct bmp_header *header);
 
 static inline enum read_status read_pixels(FILE *file, struct image *image);
 

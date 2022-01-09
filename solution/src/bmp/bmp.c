@@ -53,17 +53,17 @@ static enum write_status make_header(FILE *const out, const size_t width, const 
     return WRITE_CONTINUE;
 }
 
-enum read_status from_bmp(FILE *file, struct image *image) {
+enum read_status from_bmp(FILE *in, struct image *img) {
     enum read_status status;
     struct bmp_header header = {0};
 
-    status = read_header(file, &header);
+    status = read_header(in, &header);
     if (status != READ_CONTINUE)
         return status;
 
     int32_t width = header.biWidth, height = header.biHeight;
-    *image = create_image(width, height);
-    status = read_pixels(file, image);
+    *img = create_image(width, height);
+    status = read_pixels(in, img);
     if (status != READ_CONTINUE)
         return status;
 
@@ -89,3 +89,8 @@ enum write_status to_bmp(FILE *file, const struct image *image) {
 }
 
 
+enum read_status read_header(FILE *file, struct bmp_header *header) {
+    if (fread(header, sizeof(struct bmp_header), 1, file) == 1)
+        return READ_CONTINUE;
+    return READ_INVALID_HEADER;
+}

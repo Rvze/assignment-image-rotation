@@ -3,8 +3,9 @@
 //
 
 
-#include <stdio.h>
 #include "../../include/file/file_io.h"
+
+#include <stdio.h>
 
 const char *io_return_code_string[] = {
         [OPEN_OK] = "File is successfully opened",
