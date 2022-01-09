@@ -1,8 +1,9 @@
 #ifndef BMP_H
 
+#include "../image_manager/image_manager.h"
+
 #include  <stdint.h>
 #include <stdio.h>
-#include "../image_manager/image_manager.h"
 
 struct __attribute__((packed)) bmp_header {
     uint16_t bfType;

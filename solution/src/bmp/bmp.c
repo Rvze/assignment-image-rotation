@@ -71,16 +71,16 @@ enum read_status from_bmp(FILE *in, struct image *img) {
 }
 
 
-enum write_status to_bmp(FILE *file, const struct image *image) {
+enum write_status to_bmp(FILE *out, const struct image *image) {
 
     enum write_status status;
 
-    status = make_header(file, image->width, image->height);
+    status = make_header(out, image->width, image->height);
 
     if (status != WRITE_CONTINUE)
         return status;
 
-    status = write_pixels(file, image);
+    status = write_pixels(out, image);
 
     if (status != WRITE_CONTINUE)
         return status;
