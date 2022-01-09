@@ -33,11 +33,3 @@ enum io_return_code close_file(FILE *const file) {
         return FILE_IS_CLOSED_ERROR;
 }
 
-static inline enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode) {
-    if (!file_name)
-        return INCORRECT_FILE_NAME;
-    *file = fopen(file_name, mode);
-    if (!*file)
-        return OPEN_ERROR;
-    return OPEN_OK;
-}

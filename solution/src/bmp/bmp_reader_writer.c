@@ -5,8 +5,7 @@
 #include <inttypes.h>
 
 
-
-static enum read_status read_pixels(FILE *file, struct image *image) {
+enum read_status read_pixels(FILE *file, struct image *image) {
     const uint64_t width = image->width, height = image->height;
     const uint8_t padding = get_padding(width);
     struct pixel *pixels = image->data;
