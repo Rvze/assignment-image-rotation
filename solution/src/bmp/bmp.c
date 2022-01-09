@@ -27,6 +27,12 @@ const char *write_status_string[] = {
         [WRITE_ERROR] = "Write error\n"
 };
 
+
+enum read_status read_header(FILE *file, struct bmp_header *header) {
+    if (fread(header, sizeof(struct bmp_header), 1, file) == 1)
+        return READ_CONTINUE;
+    return READ_INVALID_HEADER;
+}
 static enum write_status make_header(FILE *const out, const size_t width, const size_t height) {
     uint8_t padding = get_padding(width);
     const size_t image_size = (sizeof(struct pixel) * (width) + padding) * (height);
@@ -89,8 +95,3 @@ enum write_status to_bmp(FILE *out, const struct image *image) {
 }
 
 
-enum read_status read_header(FILE *file, struct bmp_header *header) {
-    if (fread(header, sizeof(struct bmp_header), 1, file) == 1)
-        return READ_CONTINUE;
-    return READ_INVALID_HEADER;
-}

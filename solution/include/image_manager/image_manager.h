@@ -6,8 +6,9 @@
 #define ASSIGNMENT_IMAGE_ROTATION_IMAGE_MANAGER_H
 
 #include <stdbool.h>
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
+
 
 struct pixel {
     uint8_t b, g, r;
