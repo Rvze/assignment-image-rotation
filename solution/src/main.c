@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include "../include/bmp/bmp_reader_writer.h"
 #include "../include/file/file_io.h"
 #include "../include/image_rotation/image_rotation.h"
-#include <inttypes.h>
+#include <stdio.h>
 
 #define ERROR  1
 
