@@ -35,11 +35,12 @@ extern const char *read_status_string[];
 
 enum write_status {
     WRITE_OK = 0,
-    WRITE_ERROR
+    WRITE_ERROR,
+    WRITE_CONTINUE
 };
 extern const char *write_status_string[];
 
-enum write_status to_bmp(FILE *out, struct image const *img);
+enum write_status to_bmp(FILE *out, const struct image *image);
 
 enum read_status from_bmp(FILE *in, struct image *img);
 

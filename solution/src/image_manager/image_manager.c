@@ -5,14 +5,13 @@
 #include "../../include/image_manager/image_manager.h"
 #include <mm_malloc.h>
 
-struct image *create_image(size_t width, size_t height) {
-    struct image *image = malloc(sizeof(struct image));
-    if (image) {
-        image->height = height;
-        image->width = width;
-        image->data = malloc(height * width * sizeof(struct pixel));
-    }
-    return image;
+struct image create_image(size_t width, size_t height) {
+    struct image newImage = {0};
+    newImage.width = width;
+    newImage.height = height;
+    newImage.data = malloc(width * height * sizeof(struct pixel));
+    return newImage;
+
 }
 
 void delete_image(struct image *image) {
@@ -41,4 +40,8 @@ size_t get_image_size(const struct image *image) {
 
 bool is_valid_pos(struct image image, size_t pos) {
     return pos < image.width * image.height;
+}
+
+struct image some_image(uint64_t width, uint64_t height, struct pixel *data) {
+    return (struct image) {.width = width, .height = height, .data = data};
 }

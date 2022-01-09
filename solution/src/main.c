@@ -1,11 +1,14 @@
 #include <stdio.h>
-#include "../include/bmp/bmp_reader.h"
+#include "../include/bmp/bmp_reader_writer.h"
 #include "../include/file/file_io.h"
 #include "../include/image_rotation/image_rotation.h"
-
+#include <inttypes.h>
 
 #define ERROR  1
 
+static void log(const char *message);
+
+static void stderr_log(const char *message);
 
 int main(int argc, char **argv) {
     if (argc != 3) {
@@ -20,33 +23,46 @@ int main(int argc, char **argv) {
     const char *output_file = argv[2];
 
     enum io_return_code code = open_file(&maybe_input_file, input_file, "r");
-    fprintf(stderr, "%s\n", io_return_code_string[code]);
+    log(io_return_code_string[code]);
     if (code != OPEN_OK)
-        return fprintf(stderr, "%s", io_return_code_string[code]);
+        stderr_log(io_return_code_string[code]);
 
     enum read_status read_status = from_bmp(maybe_input_file, &image);
-    fprintf(stderr, "%s\n", read_status_string[read_status]);
     if (read_status != READ_OK) {
-        fprintf(stderr, "%s", "Ошибка при конвертации в image");
-        return ERROR;
+        stderr_log(read_status_string[read_status]);
+        close_file(maybe_input_file);
     }
+    enum io_return_code closed = close_file(maybe_input_file);
+    log(io_return_code_string[closed]);
 
     struct image rotated = rotate_image(image);
-
     code = open_file(&maybe_output_file, output_file, "w");
 
-    printf("%s\n", io_return_code_string[code]);
+    log(io_return_code_string[code]);
+
     if (code != OPEN_OK)
         return OPEN_ERROR;
-
     enum write_status write_status = to_bmp(maybe_output_file, &rotated);
 
-    printf("%s", write_status_string[write_status]);
+    log(write_status_string[write_status]);
+    close_file(maybe_output_file);
+    log(io_return_code_string[closed]);
     if (write_status != WRITE_OK)
         return WRITE_ERROR;
 
     delete_image(&rotated);
-    close_file(&maybe_output_file);
+    delete_image(&image);
+    closed = close_file(maybe_output_file);
+    log(io_return_code_string[closed]);
     return 0;
 
+
+}
+
+static void log(const char *message) {
+    printf("%s\n", message);
+}
+
+static void stderr_log(const char *message) {
+    fprintf(stderr, "%s\n", message);
 }

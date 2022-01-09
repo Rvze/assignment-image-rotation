@@ -25,12 +25,12 @@ enum io_return_code open_file(FILE **file, const char *file_name, const char *mo
     return OPEN_OK;
 }
 
-enum io_return_code close_file(FILE *const *file) {
-    if (*file)
+enum io_return_code close_file(FILE *const file) {
+    if (file != NULL) {
+        fclose(file);
+        return CLOSE_OK;
+    } else
         return FILE_IS_CLOSED_ERROR;
-    if (fclose(*file))
-        return CLOSE_ERROR;
-    return CLOSE_OK;
 }
 
 static inline enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode) {

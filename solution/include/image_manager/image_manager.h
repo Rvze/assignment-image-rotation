@@ -14,11 +14,11 @@ struct pixel {
 };
 
 struct image {
-    size_t width, height;
+    uint64_t width, height;
     struct pixel *data;
 };
 
-struct image *create_image(size_t width, size_t height);
+struct image create_image(size_t width, size_t height);
 
 void delete_image(struct image *image);
 
@@ -30,5 +30,8 @@ bool set_pixel(struct image *image, const struct pixel pixel, const size_t row, 
 size_t get_image_size(const struct image *image);
 
 bool is_valid_pos(struct image image, size_t pos);
+
+struct image some_image(uint64_t width, uint64_t height, struct pixel *data);
+
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_IMAGE_MANAGER_H

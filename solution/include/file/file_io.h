@@ -22,7 +22,7 @@ extern const char *io_return_code_string[];
 
 enum io_return_code open_file(FILE **file, const char *file_name, const char *mode);
 
-enum io_return_code close_file(FILE *const *file);
+enum io_return_code close_file(FILE *const file);
 
 static inline enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode);
 

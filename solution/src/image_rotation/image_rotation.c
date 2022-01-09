@@ -3,12 +3,11 @@
 //
 
 #include "../../include/image_rotation/image_rotation.h"
-#include "../../include/image_manager/image_manager.h"
 #include <mm_malloc.h>
 
 struct image rotate_image(const struct image source) {
     if (source.data == NULL)
-        return *create_image(source.width, source.height);
+        return some_image(source.width, source.height, NULL);
 
     struct pixel *pixels = malloc(sizeof(struct pixel) * source.width * source.height);
 
@@ -17,5 +16,8 @@ struct image rotate_image(const struct image source) {
             pixels[source.height * j + (source.height - 1 - i)] = source.data[i * source.width + j];
         }
     }
-    return *create_image(source.width, source.height);
+    return some_image(source.height, source.width, pixels);
 }
+
+
+
