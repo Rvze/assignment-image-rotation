@@ -3,7 +3,6 @@
 //
 
 
-#include <stdbool.h>
 #include <stdio.h>
 #include "../../include/file/file_io.h"
 

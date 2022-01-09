@@ -8,9 +8,9 @@
 #include "bmp.h"
 #include "../image_manager/image_manager.h"
 
-enum read_status read_header(FILE *file, struct bmp_header *header);
+static inline enum read_status read_header(FILE *file, struct bmp_header *header);
 
-enum read_status read_pixels(FILE *file, struct image *image);
+static inline enum read_status read_pixels(FILE *file, struct image *image);
 
 enum write_status write_pixels(FILE *file, const struct image *image);
 

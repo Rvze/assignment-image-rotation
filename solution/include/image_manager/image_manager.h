@@ -23,9 +23,9 @@ struct image create_image(size_t width, size_t height);
 void delete_image(struct image *image);
 
 
-struct pixel get_pixel(const struct image *image, const size_t row, const size_t column);
+struct pixel get_pixel(const struct image *image, size_t row, size_t column);
 
-bool set_pixel(struct image *image, const struct pixel pixel, const size_t row, const size_t column);
+bool set_pixel(struct image *image, struct pixel pixel, size_t row, size_t column);
 
 size_t get_image_size(const struct image *image);
 

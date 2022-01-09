@@ -4,13 +4,13 @@
 #include "../../include/bmp/bmp_reader_writer.h"
 #include <inttypes.h>
 
-enum read_status read_header(FILE *file, struct bmp_header *header) {
+static enum read_status read_header(FILE *file, struct bmp_header *header) {
     if (fread(header, sizeof(struct bmp_header), 1, file) == 1)
         return READ_CONTINUE;
     return READ_INVALID_HEADER;
 }
 
-enum read_status read_pixels(FILE *file, struct image *image) {
+static enum read_status read_pixels(FILE *file, struct image *image) {
     const uint64_t width = image->width, height = image->height;
     const uint8_t padding = get_padding(width);
     struct pixel *pixels = image->data;

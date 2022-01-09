@@ -1,8 +1,6 @@
 //
 // Created by Ньургун Макаров on 05.01.2022.
 //
-//#include "../../include/bmp/bmp.h"
-#include <mm_malloc.h>
 #include "../../include/bmp/bmp_reader_writer.h"
 
 static uint32_t TYPE = 19778;
