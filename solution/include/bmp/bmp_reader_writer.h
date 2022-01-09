@@ -10,7 +10,7 @@
 
 enum read_status read_header(FILE *file, struct bmp_header *header);
 
-enum read_status read_pixels(FILE *file, struct image *image, struct bmp_header header);
+enum read_status read_pixels(FILE *file, struct image *image);
 
 enum write_status write_pixels(FILE *file, const struct image *image);
 

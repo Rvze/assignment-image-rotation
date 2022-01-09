@@ -56,19 +56,19 @@ static enum write_status make_header(FILE *const out, const size_t width, const 
 }
 
 enum read_status from_bmp(FILE *file, struct image *image) {
+    enum read_status status;
     struct bmp_header header = {0};
 
-    *image = create_image(header.biWidth, header.biHeight);
+    status = read_header(file, &header);
+    if (status != READ_CONTINUE)
+        return status;
 
-    const size_t padding = get_padding(image->width);
+    int32_t width = header.biWidth, height = header.biHeight;
+    *image = create_image(width, height);
+    status = read_pixels(file, image);
+    if (status != READ_CONTINUE)
+        return status;
 
-    for (size_t i = 0; i < image->height; ++i) {
-        for (size_t j = 0; j < image->width; ++j) {
-            if (fread(&(image->data[image->width * i + j]), sizeof(struct pixel), 1, file) != 1)
-                return READ_INVALID_BITS;
-        }
-        fseek(file, (long) padding, SEEK_CUR);
-    }
     return READ_OK;
 }
 
