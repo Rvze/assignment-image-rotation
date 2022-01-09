@@ -47,5 +47,4 @@ enum read_status from_bmp(FILE *in, struct image *img);
 
 enum read_status read_header(FILE *file, struct bmp_header *header);
 
-
 #endif //BMP_H
