@@ -13,6 +13,6 @@ enum read_status read_pixels(FILE *file, struct image *image);
 
 enum write_status write_pixels(FILE *file, const struct image *image);
 
-uint64_t get_padding(uint64_t width);
+uint8_t get_padding(uint32_t width);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_BMP_READER_WRITER_H

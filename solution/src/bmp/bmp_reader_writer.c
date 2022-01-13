@@ -6,7 +6,7 @@
 
 
 enum read_status read_pixels(FILE *file, struct image *image) {
-    const uint64_t width = image->width, height = image->height;
+    const uint32_t width = image->width, height = image->height;
     const uint8_t padding = get_padding(width);
     struct pixel *pixels = image->data;
 
@@ -20,7 +20,7 @@ enum read_status read_pixels(FILE *file, struct image *image) {
 }
 
 enum write_status write_pixels(FILE *file, struct image const *image) {
-    const uint64_t width = image->width, height = image->height;
+    const uint32_t width = image->width, height = image->height;
     const uint8_t padding = get_padding(width);
     struct pixel *pixels = image->data;
     for (uint64_t i = 0; i < height; ++i) {
@@ -36,6 +36,6 @@ enum write_status write_pixels(FILE *file, struct image const *image) {
 }
 
 
-uint64_t get_padding(const uint64_t width) {
+uint8_t get_padding(const uint32_t width) {
     return width % 4 == 0 ? 0 : 4 - ((width * sizeof(struct pixel)) % 4);
 }

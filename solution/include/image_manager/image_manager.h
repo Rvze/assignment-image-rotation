@@ -26,13 +26,13 @@ void delete_image(struct image *image);
 
 struct pixel get_pixel(const struct image *image, size_t row, size_t column);
 
-bool set_pixel(struct image *image, struct pixel pixel, size_t row, size_t column);
+bool set_pixel(struct image *image, struct pixel pixel, const size_t row, const size_t column);
 
 size_t get_image_size(const struct image *image);
 
 bool is_valid_pos(struct image image, size_t pos);
 
-struct image some_image(uint64_t width, uint64_t height, struct pixel *data);
+struct image some_image(uint32_t width, uint32_t height, struct pixel *data);
 
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_IMAGE_MANAGER_H

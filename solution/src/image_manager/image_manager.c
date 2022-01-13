@@ -5,7 +5,7 @@
 #include "../../include/image_manager/image_manager.h"
 #include <mm_malloc.h>
 
-struct image create_image(size_t width, size_t height) {
+struct image create_image(const size_t width, const size_t height) {
     struct image newImage = {0};
     newImage.width = width;
     newImage.height = height;
@@ -39,6 +39,6 @@ bool is_valid_pos(struct image image, size_t pos) {
     return pos < image.width * image.height;
 }
 
-struct image some_image(uint64_t width, uint64_t height, struct pixel *data) {
+struct image some_image(uint32_t width, uint32_t height, struct pixel *data) {
     return (struct image) {.width = width, .height = height, .data = data};
 }
